@@ -1,9 +1,24 @@
 console.log("Checkpoint 1");
 
+//Global Variables
 //Select the dropdown list with D3
 var dropDownList = d3.select("#selDataset");
+// This initializes the variable to the drop-down selection
+var dropdownSelection = "";
+//This initializes a global variable for all the Metadata inside the JSON data file
+var theMetadata = [];
 
 
+//This function initiales the program
+function init() {
+
+    //This sets up the drop-down options
+    // Resetting the dropdown list in case of changes to any options
+    resetDropdownList();
+}
+
+
+// This function sets up the drop-down options
 function resetDropdownList() {
 
     // First, read the JSON file with the data
@@ -25,28 +40,26 @@ function resetDropdownList() {
     });
 };
 
-// Resetting the dropdown list in case of changes to any options
-resetDropdownList();
+
 
 console.log("Checkpoint 2");
 
-
-var dropdownSelection = "";
-
 // This function is called when a dropdown menu item is selected
-function optionChanged() {
+function optionChanged(individual) {
     console.log("Checkpoint 4");
 
-    // Assign the value of the dropdown menu option to a variable
-    //Save the value that was chosen from the dropdown list
-    dropdownSelection = dropDownList.property("value");
+    // // Assign the value of the dropdown menu option to a variable
+    // //Save the value that was chosen from the dropdown list
+    // dropdownSelection = dropDownList.property("value");
 
-    console.log(dropdownSelection);
+    // Plotly.plot("pie", 0, 0)
+    // Plotly.plot("bar", 0, 0)
+    // Plotly.plot("bubble", 0, 0)
+
+
+    doMetaDataChart(individual);
+    makeCharts(individual);
     console.log("Checkpoint 5");
-
-    doMetaDataChart(dropdownSelection);
-    makeCharts(dropdownSelection);
-
 }
 
 console.log("Checkpoint 3");
@@ -130,12 +143,12 @@ function makeCharts(individual) {
 
         // Here the function slice() is being used to take the first ten samples for the pie chart,
         // Set up the pie chart layout
-        let pieLayout = {
+        var pieLayout = {
             margin: { t: 0, l: 0 }
         };
 
         // Set up the pie chart data formatting for the first ten samples
-        let pieTrace = [
+        var pieTrace = [
             {
                 values: sorted_sample_values.slice(0, 10),
                 labels: sorted_otu_ids.slice(0, 10),
@@ -146,7 +159,7 @@ function makeCharts(individual) {
         ];
 
         //Display Chart where tagged
-        Plotly.plot("pie", pieTrace, pieLayout)
+        Plotly.newPlot("pie", pieTrace, pieLayout)
 
 
         // Set up the horizontal bar chart trace object
@@ -159,7 +172,7 @@ function makeCharts(individual) {
         }];
 
         // Set up the horizontal bar chart layout
-        horizLayout = {
+        var horizLayout = {
             margin: {
                 l: 100,
                 r: 10,
@@ -172,18 +185,18 @@ function makeCharts(individual) {
         }
 
         //Display Chart where tagged
-        Plotly.plot("bar", horizTrace, horizLayout);
+        Plotly.newPlot("bar", horizTrace, horizLayout);
 
 
-        // Set up the buble chart layout
-        let bubbleLayout = {
+        // Set up the bubble chart layout
+        var bubbleLayout = {
             margin: { t: 0 },
             hovermode: "closests",
             xaxis: { title: "OTU ID" }
         };
 
-        // Set up buble chart data formatting
-        let bubbleTrace = [
+        // Set up bubble chart data formatting
+        var bubbleTrace = [
             {
                 x: number_otu_ids,
                 y: sample_values,
@@ -198,11 +211,9 @@ function makeCharts(individual) {
         ];
 
         //Display Chart where tagged
-        Plotly.plot("bubble", bubbleTrace, bubbleLayout);
+        Plotly.newPlot("bubble", bubbleTrace, bubbleLayout);
     })
 }
-
-var theMetadata = [];
 
 function doMetaDataChart(individual) {
     console.log("Checkpoint 6");
@@ -243,4 +254,6 @@ function doMetaDataChart(individual) {
             demographic7;
     });
 }
+
+init();
 
