@@ -15,6 +15,11 @@ function init() {
     //This sets up the drop-down options
     // Resetting the dropdown list in case of changes to any options
     resetDropdownList();
+
+    //This function is separte with only one thing inside to make it easy to see
+    // where the function starts to run at the bottom of the code.
+    //This function would normally have a few more steps, but they are included in
+    // the event listener function and other functions
 }
 
 
@@ -48,14 +53,12 @@ console.log("Checkpoint 2");
 function optionChanged(individual) {
     console.log("Checkpoint 4");
 
-    // // Assign the value of the dropdown menu option to a variable
-    // //Save the value that was chosen from the dropdown list
-    // dropdownSelection = dropDownList.property("value");
-
-    // Plotly.plot("pie", 0, 0)
-    // Plotly.plot("bar", 0, 0)
-    // Plotly.plot("bubble", 0, 0)
-
+    // Note that the commented out part directly below is unnecessary because the 
+    // html built-in function from the index.html automatically pulls in the 
+    // selection as an argument 
+            // // Assign the value of the dropdown menu option to a variable
+            // //Save the value that was chosen from the dropdown list
+            // dropdownSelection = dropDownList.property("value");
 
     doMetaDataChart(individual);
     makeCharts(individual);
@@ -139,7 +142,7 @@ function makeCharts(individual) {
 
 
         // Note that the instructions have pie charts in the pictures instead of horizontal bar charts, 
-        // so I made both.
+        // which means the instructions conflict, so I made both.
 
         // Here the function slice() is being used to take the first ten samples for the pie chart,
         // Set up the pie chart layout
